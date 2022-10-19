@@ -6,7 +6,7 @@
 /*   By: saich <saich@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:31:54 by saich             #+#    #+#             */
-/*   Updated: 2022/10/12 18:55:55 by saich            ###   ########.fr       */
+/*   Updated: 2022/10/19 15:55:09 by saich            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,26 @@ namespace ft
 				_end(nullptr),
 				_end_capacity(nullptr)
 			{}
+			template <typename PointerType> class RandomAccessIterator {
+				public:
+					using iterator_category = std::random_access_iterator_tag;
+					using value_type = PointerType;
+					using difference_type = std::ptrdiff_t;
+					using pointer = PointerType*;
+					using reference = PointerType&;
+				protected:
+					PointerType*	m_ptr;
+				public:
+				
+					RandomAccessIterator(PointerType* ptr =nullptr){
+						m_ptr = ptr;
+					}
+					RandomAccessIterator(const RandomAccessIterator<PointerType>& RAIterator) = default;
+					~RandomAccessIterator(){}
+					
+					RandomAccessIterator<PointerType>&		operator=(const RandomAccessIterator<PointerType>& RAIterator) = default;
+			};
+			
 	}
 }
 
