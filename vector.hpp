@@ -6,7 +6,7 @@
 /*   By: saich <saich@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:31:54 by saich             #+#    #+#             */
-/*   Updated: 2022/10/19 15:55:09 by saich            ###   ########.fr       */
+/*   Updated: 2022/10/27 14:26:42 by saich            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ namespace ft
 					RandomAccessIterator(PointerType* ptr =nullptr){
 						m_ptr = ptr;
 					}
-					RandomAccessIterator(const RandomAccessIterator<PointerType>& RAIterator) = default;
+					RandomAccessIterator(const RandomAccessIterator<PointerType>& RAIterator);
 					~RandomAccessIterator(){}
 					
-					RandomAccessIterator<PointerType>&		operator=(const RandomAccessIterator<PointerType>& RAIterator) = default;
+					RandomAccessIterator<PointerType>&		operator=(const RandomAccessIterator<PointerType>& RAIterator);
 			};
 			
 	}
