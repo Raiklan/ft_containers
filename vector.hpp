@@ -6,7 +6,7 @@
 /*   By: saich <saich@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:31:54 by saich             #+#    #+#             */
-/*   Updated: 2022/11/21 17:55:32 by saich            ###   ########.fr       */
+/*   Updated: 2022/10/12 18:55:55 by saich            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ namespace ft
 	template <class T, class Alloc = std::allocator<T> >
 	class vector
 	{
+		 private:
+            size_type       									_capacity;
+            size_type       									_size;
+            allocator_type  									_alloc;
+            value_type      									*_data;
 		public:
 			typedef T											value_type;
 			typedef Alloc										allocator_type;
@@ -32,6 +37,7 @@ namespace ft
 			typedef typename allocator_type::pointer			pointer;
 			typedef typename allocator_type::const_pointer		const_pointer;
 			typedef	size_t										size_type;
+			// Constructor, destructor, operator = ====================================================================
 			explicit vector(const allocator_type& alloc = allocator_type())
 			:
 				_alloc(alloc),
@@ -54,6 +60,14 @@ namespace ft
                 _data = _alloc.allocate(_capacity);
                 for(size_type i = 0;i < _size;i++)
                     _alloc.construct(&_data[i], x._data[i]);
+            }
+			virtual ~vector() 
+			{
+                for(size_type i=0;i< _size;i++)
+                {
+                    _alloc.destroy(&_data[i]);
+                }
+                _alloc.deallocate(_data, _size);
             }
 			vector& operator= (const vector& x)
 			{
@@ -91,10 +105,31 @@ namespace ft
                 _size = x._size;
                 return *this;
 			}
-            
+            // Capacity functions=========================================================================================================
+			size_type size() const {return _size;}
 
+			size_type capacity() const {return _capacity;}
+
+			size_type max_size() const {return _alloc.max_size();}
+
+			bool empty() const 
+			{
+				if (_size == 0)
+					return true;
+				return false;
+			}
+
+			void reserve (size_type n)
+			{
+				if (n > _capacity)
+				{
+					
+				}
+			}
 
 	}
 }
 
 #endif
+
+
