@@ -6,7 +6,7 @@
 /*   By: saich <saich@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:31:54 by saich             #+#    #+#             */
-/*   Updated: 2022/10/12 18:55:55 by saich            ###   ########.fr       */
+/*   Updated: 2022/11/26 22:45:36 by saich            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ namespace ft
 	template <class T, class Alloc = std::allocator<T> >
 	class vector
 	{
-		 private:
-            size_type       									_capacity;
-            size_type       									_size;
-            allocator_type  									_alloc;
-            value_type      									*_data;
 		public:
 			typedef T											value_type;
 			typedef Alloc										allocator_type;
@@ -45,14 +40,14 @@ namespace ft
 				_size(0),
 				_data(nullptr)
 			{}
-			explicit vector(size_type n,const value_type& val = value_type(), const allocator_type& = allocator_type())
+			explicit vector(size_type n,const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 			:
 				_capacity(n),
 				_size(n),
 				_alloc(alloc)
 			{
-				_data = alloc.allocate(_capacity);
-				for (size_t i = 0, i < _size, i++)
+				_data = _alloc.allocate(_capacity);
+				for (size_t i = 0; i < _size; i++)
 					_alloc.construct(&_data[i], val);
 			}
 			vector (const vector& x) : _capacity(x.capacity()), _size(x.size()), _alloc(x._alloc)
@@ -61,7 +56,7 @@ namespace ft
                 for(size_type i = 0;i < _size;i++)
                     _alloc.construct(&_data[i], x._data[i]);
             }
-			virtual ~vector() 
+			virtual ~vector()
 			{
                 for(size_type i=0;i< _size;i++)
                 {
@@ -75,7 +70,7 @@ namespace ft
 				if (!_data)
 				{
 					_data = _alloc.allocate(x._capacity);
-					for (size_t i = 0, i < x._size, i++)
+					for (size_t i = 0; i < x._size; i++)
 						_alloc.construct(&_data[i], x._data[i]);
 					_capacity = x._capacity;
                     _size = x._size;
@@ -83,9 +78,9 @@ namespace ft
 				}
 				if (_capacity == x._capacity)
 				{
-					for (size_t i = 0, i <_size, i++)
+					for (size_t i = 0; i < _size; i++)
 						_alloc.destroy(&_data[i]);
-					for (size_t i = 0, i <x._size, i++)
+					for (size_t i = 0; i <x._size; i++)
 						_alloc.construct(&_data[i], x._data[i]);
 				}
 				else
@@ -123,12 +118,29 @@ namespace ft
 			{
 				if (n > _capacity)
 				{
-					
+					value_type *tmp;
+					tmp = _alloc.allocate(n);
+					for (size_type i = 0; i < _size; i++)
+						_alloc.construct(tmp+i, _data[i]);
+					for (size_type i = 0; i < _size; i++)
+						_alloc.destroy(_data + i);
+					_alloc.deallocate(_data, _capacity);
+					_data = tmp;
+					_capacity = n;
 				}
 			}
 
-	}
-}
+			/*void resize (size_type n, value_type val = value_type())
+			{
+				
+			}*/
+		private:
+            size_type       									_capacity;
+            size_type       									_size;
+            allocator_type  									_alloc;
+            value_type      									*_data;
+	};
+};
 
 #endif
 

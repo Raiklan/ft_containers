@@ -6,7 +6,7 @@
 /*   By: saich <saich@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:41:44 by saich             #+#    #+#             */
-/*   Updated: 2022/10/27 15:43:09 by saich            ###   ########.fr       */
+/*   Updated: 2022/11/26 22:46:38 by saich            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <vector>
 #include <iostream>
+#include "vector.hpp"
 
 // test std::vector
 int main(int ac, char **av)
@@ -23,10 +24,13 @@ int main(int ac, char **av)
     (void)av;
     
     // using ::iterator and ::reverse_iterator
+	ft::vector<int> v5(10);
     std::vector<int> v;
     std::vector<int>::iterator it;
     std::vector<int>::reverse_iterator rit;
 
+	std::cout << v5.size() << std::endl;
+	
     for (int i = 1; i <= 10; i++)
     {
         v.push_back(i);
