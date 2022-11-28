@@ -6,7 +6,7 @@
 /*   By: saich <saich@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:31:54 by saich             #+#    #+#             */
-/*   Updated: 2022/11/26 22:45:36 by saich            ###   ########.fr       */
+/*   Updated: 2022/11/29 00:40:33 by saich            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ namespace ft
 			// Constructor, destructor, operator = ====================================================================
 			explicit vector(const allocator_type& alloc = allocator_type())
 			:
-				_alloc(alloc),
 				_capacity(0),
 				_size(0),
+				_alloc(alloc),
 				_data(nullptr)
 			{}
 			explicit vector(size_type n,const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
@@ -66,7 +66,7 @@ namespace ft
             }
 			vector& operator= (const vector& x)
 			{
-				_alloc = x.get_allocator();
+				// _alloc = x.get_allocator();
 				if (!_data)
 				{
 					_data = _alloc.allocate(x._capacity);
@@ -130,14 +130,129 @@ namespace ft
 				}
 			}
 
-			/*void resize (size_type n, value_type val = value_type())
+			void resize (size_type n, value_type val = value_type())
 			{
-				
-			}*/
+				if (n < _size)
+					_size = n;
+				else if (n > _size)
+				{
+					reserve(n);
+					for (size_type i = _size; i < n; i++)
+					{
+						_alloc.construct(&_data[i], val);
+					}
+					_size = n;
+				}
+			}
+			
+			void push_back (const value_type& val)
+            {
+                if (_size + 1 > _capacity)
+                {
+                    if (_capacity == 0)
+                        reserve(1);
+                    else
+                        reserve(_capacity * 2);
+                }
+                _alloc.construct(&_data[_size], val);
+                _size++;
+            }
+			
+			void pop_back()
+            {
+                if (_size != 0)
+                {
+                    _alloc.destroy(&_data[_size - 1]);
+                    _size--;
+                }
+            }
+			
+			void    swap(vector &x)
+            {
+                size_type tmp = _size;
+                _size = x._size;
+                x._size = tmp;
+
+                tmp = _capacity;
+                _capacity = x._capacity;
+                x._capacity = tmp;
+                
+                value_type *another_tmp = _data;
+
+                _data = x._data;
+                x._data = another_tmp;
+            }
+
+            void    clear()
+            {
+                for(size_type i=0; i < _size ; i++)
+                    _alloc.destroy(_data + i);
+                _size = 0;
+            }
+            
+            reference front()
+            {
+                return _data[0];
+            }
+        
+            const_reference front() const
+            {
+                return _data[0];
+            }
+
+            reference back()
+            {
+                return _data[_size - 1];
+            }
+            const_reference back() const
+            {
+                return _data[_size - 1];
+            }
+
+            reference at (size_type n)
+            {
+                if (n > _size)
+                    throw std::out_of_range("Out of range");
+                return _data[n];
+            }
+			
+            const_reference at (size_type n) const
+            {
+                if (n > _size)
+                    throw std::out_of_range("Out of range");
+                return _data[n];
+            }
+			
+			reference operator[] (size_type n)
+            {
+                return _data[n];
+            }
+			
+            const_reference operator[] (size_type n) const
+            {
+                return _data[n];
+            }
+
+            allocator_type get_allocator() const
+            {
+                allocator_type my_copy(_alloc);
+                return my_copy;
+            }
+			
+            void assign (size_type n, const value_type& val)
+            {
+                if (n > _capacity)
+                {
+                    reserve(n);
+                }
+                for(size_t i = 0; i < n; i++)
+                    _alloc.construct(&_data[i], val);
+                _size = n;
+            }
 		private:
-            size_type       									_capacity;
-            size_type       									_size;
-            allocator_type  									_alloc;
+			size_type       									_capacity;
+			size_type       									_size;
+			allocator_type  									_alloc;
             value_type      									*_data;
 	};
 };
