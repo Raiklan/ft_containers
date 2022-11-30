@@ -6,40 +6,39 @@
 /*   By: saich <saich@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:41:44 by saich             #+#    #+#             */
-/*   Updated: 2022/11/29 00:45:11 by saich            ###   ########.fr       */
+/*   Updated: 2022/11/30 19:13:34 by saich            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector>
 #include <iostream>
 #include "vector.hpp"
-
 // test std::vector
 int main(int ac, char **av)
 {
     (void)ac;
     (void)av;
     
-	//using ft::vector testing reserve size and capacity functions
-	ft::vector<int> v5(10);
-	std::cout << "FT :: Vector size:" << v5.size() << std::endl;
-	std::cout << "FT :: Vector capacity:" << v5.capacity() << std::endl;
+	//using NAMESPACE::vector testing reserve size and capacity functions
+	NAMESPACE::vector<int> v5(10);
+	std::cout << "Vector size:" << v5.size() << std::endl;
+	std::cout << "Vector capacity:" << v5.capacity() << std::endl;
 	v5.reserve(15);
-	std::cout << "FT :: Vector size:" << v5.size() << std::endl;
-	std::cout << "FT :: Vector capacity:" << v5.capacity() << std::endl;
+	std::cout << "Vector size:" << v5.size() << std::endl;
+	std::cout << "Vector capacity:" << v5.capacity() << std::endl;
 	v5.resize(20, 10);
-	std::cout << "FT :: Vector size:" << v5.size() << std::endl;
-	std::cout << "FT :: Vector capacity:" << v5.capacity() << std::endl;
+	std::cout << "Vector size:" << v5.size() << std::endl;
+	std::cout << "Vector capacity:" << v5.capacity() << std::endl;
 	if (v5.empty() == false)
-		std::cout << "ft::vector is not empty" << std::endl;
+		std::cout << "NAMESPACE::vector is not empty" << std::endl;
 	else
-		std::cout << "ft::vector is empty" << std::endl;
+		std::cout << "NAMESPACE::vector is empty" << std::endl;
 	std::cout << "Vector max size is:" << v5.max_size() << std::endl;
-	ft::vector<int> v6;
+	NAMESPACE::vector<int> v6;
 	v6 = v5;
-	std::cout << "FT :: Vector size:" << v6.size() << std::endl;
-	std::cout << "FT :: Vector capacity:" << v6.capacity() << std::endl;
-	ft::vector<int> v4;
+	std::cout << "Vector size:" << v6.size() << std::endl;
+	std::cout << "Vector capacity:" << v6.capacity() << std::endl;
+	NAMESPACE::vector<int> v4;
 	for (int i = 1; i <= 10; i++)
     {
         v4.push_back(i);
@@ -48,7 +47,7 @@ int main(int ac, char **av)
 	std::cout << std::endl;
 
 
-	// testing difference between ft and std
+	// testing difference between NAMESPACE and std
 	std::vector<int> v3(10);
 	std::cout << "STD :: Vector size:" << v3.size() << std::endl;
 	std::cout << "STD :: Vector capacity:" << v3.capacity() << std::endl;
