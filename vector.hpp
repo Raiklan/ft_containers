@@ -6,7 +6,7 @@
 /*   By: saich <saich@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:31:54 by saich             #+#    #+#             */
-/*   Updated: 2022/11/29 00:40:33 by saich            ###   ########.fr       */
+/*   Updated: 2022/11/30 19:06:34 by saich            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <memory>
 # include <cstddef>
 # include <tgmath.h>
+# include "is_integral.hpp"
+# include "equal.hpp"
+# include "enable_if.hpp"
 // ============================================================================
 namespace ft
 {
@@ -38,7 +41,7 @@ namespace ft
 				_capacity(0),
 				_size(0),
 				_alloc(alloc),
-				_data(nullptr)
+				_data(0)
 			{}
 			explicit vector(size_type n,const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
 			:
@@ -66,7 +69,6 @@ namespace ft
             }
 			vector& operator= (const vector& x)
 			{
-				// _alloc = x.get_allocator();
 				if (!_data)
 				{
 					_data = _alloc.allocate(x._capacity);
@@ -100,6 +102,16 @@ namespace ft
                 _size = x._size;
                 return *this;
 			}
+			/* -----------------------ITERATORS-------------------------------------
+			iterator            begin() {return iterator(_data);}
+            const_iterator      begin() const {return const_iterator(_data);}
+            iterator            end() {return iterator(_data + _size);}
+            const_iterator      end() const {return const_iterator(_data + _size);}
+            reverse_iterator    rbegin() {return reverse_iterator(this->end());}
+            const_reverse_iterator  rbegin() const {return const_reverse_iterator(this->end());}
+            reverse_iterator    rend() {return reverse_iterator(this->begin());}
+            const_reverse_iterator     rend() const {return const_reverse_iterator(this->begin());}
+			 -----------------------ITERATORS-------------------------------------*/
             // Capacity functions=========================================================================================================
 			size_type size() const {return _size;}
 
@@ -144,6 +156,18 @@ namespace ft
 					_size = n;
 				}
 			}
+			// Modifiers =================================================================================================================
+			
+			void assign (size_type n, const value_type& val)
+            {
+                if (n > _capacity)
+                {
+                    reserve(n);
+                }
+                for(size_t i = 0; i < n; i++)
+                    _alloc.construct(&_data[i], val);
+                _size = n;
+            }
 			
 			void push_back (const value_type& val)
             {
@@ -189,7 +213,7 @@ namespace ft
                     _alloc.destroy(_data + i);
                 _size = 0;
             }
-            
+            // Element access ============================================================================================================
             reference front()
             {
                 return _data[0];
@@ -232,23 +256,13 @@ namespace ft
             {
                 return _data[n];
             }
-
+			// Allocator =================================================================================================================
             allocator_type get_allocator() const
             {
                 allocator_type my_copy(_alloc);
                 return my_copy;
             }
-			
-            void assign (size_type n, const value_type& val)
-            {
-                if (n > _capacity)
-                {
-                    reserve(n);
-                }
-                for(size_t i = 0; i < n; i++)
-                    _alloc.construct(&_data[i], val);
-                _size = n;
-            }
+			// Non-member function overloads =============================================================================================
 		private:
 			size_type       									_capacity;
 			size_type       									_size;
