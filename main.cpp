@@ -6,14 +6,14 @@
 /*   By: saich <saich@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 15:41:44 by saich             #+#    #+#             */
-/*   Updated: 2022/11/30 19:13:34 by saich            ###   ########.fr       */
+/*   Updated: 2022/12/07 19:14:34 by saich            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vector>
 #include <iostream>
 #include "vector.hpp"
-// test std::vector
+// test NAMESPACE::vector
 int main(int ac, char **av)
 {
     (void)ac;
@@ -45,26 +45,11 @@ int main(int ac, char **av)
         std::cout << "Max capacity v4: " << v4.capacity() << std::endl;
     }
 	std::cout << std::endl;
-
-
-	// testing difference between NAMESPACE and std
-	std::vector<int> v3(10);
-	std::cout << "STD :: Vector size:" << v3.size() << std::endl;
-	std::cout << "STD :: Vector capacity:" << v3.capacity() << std::endl;
-	v3.reserve(15);
-	std::cout << "STD :: Vector size:" << v3.size() << std::endl;
-	std::cout << "STD :: Vector capacity:" << v3.capacity() << std::endl;
-	if (v3.empty() == false)
-		std::cout << "std::vector is not empty" << std::endl;
-	else
-		std::cout << "std::vector is empty" << std::endl;
-	std::cout << "Vector max size is:" << v3.max_size() << std::endl;
-	std::cout << std::endl;
 	
     // using ::iterator and ::reverse_iterator
-    std::vector<int> v;
-    std::vector<int>::iterator it;
-    std::vector<int>::reverse_iterator rit;
+    NAMESPACE::vector<int> v;
+    NAMESPACE::vector<int>::iterator it;
+    NAMESPACE::vector<int>::reverse_iterator rit;
 
 	
     for (int i = 1; i <= 10; i++)
@@ -90,8 +75,8 @@ int main(int ac, char **av)
     std::cout << std::endl;
 
     // using insert() function
-    std::vector<std::string> v2;
-    std::vector<std::string>::iterator it2;
+    NAMESPACE::vector<std::string> v2;
+    NAMESPACE::vector<std::string>::iterator it2;
     
     v2.push_back("Hello");
     v2.push_back("World");
