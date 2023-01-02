@@ -6,7 +6,7 @@
 #    By: saich <saich@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 17:25:33 by saich             #+#    #+#              #
-#    Updated: 2022/12/01 18:46:32 by saich            ###   ########.fr        #
+#    Updated: 2023/01/02 17:27:14 by saich            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,10 @@ $(NAME1):	$(OBJS1)
 			$(CC) $(CFLAGS) $(OBJS1) -o $@ -I$(INCL)
 
 main.o:	main.cpp
-			$(CC) $(CFLAGS) -c main.cpp -o main.o -D NAMESPACE=ft -I$(INCL)
+			$(CC) $(CFLAGS) -c main.cpp -o main.o -D FT -I$(INCL)
 
 std_main.o:	main.cpp
-				$(CC) $(CFLAGS) -c main.cpp -o std_main.o -D NAMESPACE=std -I$(INCL)
+				$(CC) $(CFLAGS) -c main.cpp -o std_main.o -I$(INCL)
 
 clean:
 			$(RM) $(OBJS) $(OBJS1)
